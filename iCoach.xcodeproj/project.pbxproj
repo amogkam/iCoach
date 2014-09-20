@@ -115,8 +115,6 @@
 		AF3A9E7519BAAA6A00975902 /* iCoach */ = {
 			isa = PBXGroup;
 			children = (
-				AF3A9E7E19BAAA6A00975902 /* AKAppDelegate.h */,
-				AF3A9E7F19BAAA6A00975902 /* AKAppDelegate.m */,
 				AF3A9E8119BAAA6A00975902 /* Main.storyboard */,
 				AF3A9E8419BAAA6A00975902 /* AKFirstViewController.h */,
 				AF3A9E8519BAAA6A00975902 /* AKFirstViewController.m */,
@@ -131,6 +129,8 @@
 		AF3A9E7619BAAA6A00975902 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AF3A9E7E19BAAA6A00975902 /* AKAppDelegate.h */,
+				AF3A9E7F19BAAA6A00975902 /* AKAppDelegate.m */,
 				AF3A9E7719BAAA6A00975902 /* iCoach-Info.plist */,
 				AF3A9E7819BAAA6A00975902 /* InfoPlist.strings */,
 				AF3A9E7B19BAAA6A00975902 /* main.m */,
@@ -463,6 +463,7 @@
 				AF3A9EA319BAAA6B00975902 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF3A9EA419BAAA6B00975902 /* Build configuration list for PBXNativeTarget "iCoachTests" */ = {
 			isa = XCConfigurationList;
@@ -471,6 +472,7 @@
 				AF3A9EA619BAAA6B00975902 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

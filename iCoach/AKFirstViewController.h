@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AKFirstViewController : UIViewController
+@interface AKFirstViewController : UITableViewController
+
+@property (nonatomic, strong) NSMutableArray *players;
+
 
 @end

@@ -15,7 +15,5 @@ int main(int argc, char * argv[])
     @autoreleasepool {
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AKAppDelegate class]));
         
-        NSString *string = @"Hello World";
-        NSLog(@"%@", string);
     }
 }

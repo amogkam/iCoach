@@ -7,12 +7,39 @@
 //
 
 #import "AKAppDelegate.h"
+#import "AKFirstViewController.h"
+#import "AKSecondViewController.h"
 
 @implementation AKAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    
+    AKFirstViewController *firstVC = [[AKFirstViewController alloc] init];
+    UINavigationController *firstNavVC = [[UINavigationController alloc] initWithRootViewController:firstVC];
+    
+    AKSecondViewController *secondVC = [[AKSecondViewController alloc] init];
+    UINavigationController *secondNavVC = [[UINavigationController alloc] initWithRootViewController:secondVC];
+    
+    NSMutableArray *tabViewControllers = [[NSMutableArray alloc] init];
+    [tabViewControllers addObject:firstNavVC];
+    [tabViewControllers addObject:secondNavVC];
+    
+    firstNavVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"First" image:nil tag:1];
+    UINavigationBar *firstNavigationBar = firstNavVC.navigationBar;
+    firstNavigationBar.barTintColor = [UIColor colorWithRed:242.0 / 255.0 green:122.0 / 255.0 blue:87.0 / 255.0 alpha:1.0];
+    firstNavigationBar.barStyle = UIBarStyleBlackOpaque;
+    
+    secondNavVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Second" image:nil tag:2];
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    tabBarController.viewControllers = tabViewControllers;
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.rootViewController = tabBarController;
+    
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 							
