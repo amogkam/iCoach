@@ -10,7 +10,8 @@
 
 @interface AKFirstViewController : UITableViewController
 
-@property (nonatomic, strong) NSMutableArray *players;
+//@property (nonatomic,strong) NSArray *starters;
+//@property (nonatomic, strong) NSMutableArray *bench;
 
-
+-(void)updatePlayers:(NSArray *)players;
 @end

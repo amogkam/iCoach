@@ -22,6 +22,8 @@
 		AF3A9E9419BAAA6B00975902 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A9E7319BAAA6A00975902 /* UIKit.framework */; };
 		AF3A9E9C19BAAA6B00975902 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF3A9E9A19BAAA6B00975902 /* InfoPlist.strings */; };
 		AF3A9E9E19BAAA6B00975902 /* iCoachTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3A9E9D19BAAA6B00975902 /* iCoachTests.m */; };
+		AF3B2A9719EC52A5004AD9F1 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3B2A9619EC52A5004AD9F1 /* Player.m */; };
+		AF3B2A9A19EC5F72004AD9F1 /* AKPlayerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3B2A9919EC5F72004AD9F1 /* AKPlayerDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,10 @@
 		AF3A9E9919BAAA6B00975902 /* iCoachTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iCoachTests-Info.plist"; sourceTree = "<group>"; };
 		AF3A9E9B19BAAA6B00975902 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AF3A9E9D19BAAA6B00975902 /* iCoachTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iCoachTests.m; sourceTree = "<group>"; };
+		AF3B2A9519EC52A5004AD9F1 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		AF3B2A9619EC52A5004AD9F1 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		AF3B2A9819EC5F72004AD9F1 /* AKPlayerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlayerDetailViewController.h; sourceTree = "<group>"; };
+		AF3B2A9919EC5F72004AD9F1 /* AKPlayerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlayerDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +126,10 @@
 				AF3A9E8519BAAA6A00975902 /* AKFirstViewController.m */,
 				AF3A9E8719BAAA6A00975902 /* AKSecondViewController.h */,
 				AF3A9E8819BAAA6A00975902 /* AKSecondViewController.m */,
+				AF3B2A9519EC52A5004AD9F1 /* Player.h */,
+				AF3B2A9619EC52A5004AD9F1 /* Player.m */,
+				AF3B2A9819EC5F72004AD9F1 /* AKPlayerDetailViewController.h */,
+				AF3B2A9919EC5F72004AD9F1 /* AKPlayerDetailViewController.m */,
 				AF3A9E8A19BAAA6A00975902 /* Images.xcassets */,
 				AF3A9E7619BAAA6A00975902 /* Supporting Files */,
 			);
@@ -255,10 +265,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF3B2A9A19EC5F72004AD9F1 /* AKPlayerDetailViewController.m in Sources */,
 				AF3A9E8019BAAA6A00975902 /* AKAppDelegate.m in Sources */,
 				AF3A9E8619BAAA6A00975902 /* AKFirstViewController.m in Sources */,
 				AF3A9E8919BAAA6A00975902 /* AKSecondViewController.m in Sources */,
 				AF3A9E7C19BAAA6A00975902 /* main.m in Sources */,
+				AF3B2A9719EC52A5004AD9F1 /* Player.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 #import "AKAppDelegate.h"
 #import "AKFirstViewController.h"
 #import "AKSecondViewController.h"
+#import "AKPlayerDetailViewController.h"
 
 @implementation AKAppDelegate
 
@@ -17,6 +18,18 @@
     
     AKFirstViewController *firstVC = [[AKFirstViewController alloc] init];
     UINavigationController *firstNavVC = [[UINavigationController alloc] initWithRootViewController:firstVC];
+    firstVC.title = @"Players";
+    
+    Player *player1 = [[Player alloc] initWithName:@"John Doe" number:1 position:@"PG"];
+    Player *player2 = [[Player alloc] initWithName:@"Joe Random" number:2 position:@"SG"];
+    Player *player3 = [[Player alloc] initWithName:@"Amog Kamsetty" number:3 position:@"SF"];
+    Player *player4 = [[Player alloc] initWithName:@"Colin Campbell" number:4 position:@"PF"];
+    Player *player5 = [[Player alloc] initWithName:@"Austen McDonald" number:5 position:@"C"];
+    Player *player6 = [[Player alloc] initWithName:@"Objective C" number:6 position:@"C"];
+    
+    
+    NSArray *players = [NSArray arrayWithObjects: player1,player2,player3,player4,player5, player6, nil];
+    [firstVC updatePlayers:players];
     
     AKSecondViewController *secondVC = [[AKSecondViewController alloc] init];
     UINavigationController *secondNavVC = [[UINavigationController alloc] initWithRootViewController:secondVC];
@@ -25,9 +38,10 @@
     [tabViewControllers addObject:firstNavVC];
     [tabViewControllers addObject:secondNavVC];
     
-    firstNavVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"First" image:nil tag:1];
+    firstNavVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Roster Management" image:nil tag:1];
     UINavigationBar *firstNavigationBar = firstNavVC.navigationBar;
     firstNavigationBar.barTintColor = [UIColor colorWithRed:242.0 / 255.0 green:122.0 / 255.0 blue:87.0 / 255.0 alpha:1.0];
+    firstNavigationBar.tintColor = [UIColor whiteColor];
     firstNavigationBar.barStyle = UIBarStyleBlackOpaque;
     
     secondNavVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Second" image:nil tag:2];
@@ -40,6 +54,7 @@
     
     [self.window makeKeyAndVisible];
     
+       
     return YES;
 }
 							
