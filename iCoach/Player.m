@@ -20,16 +20,22 @@
 {
     self = [super init];
     if (self) {
-        self.name = name;
-        self.number = [NSNumber numberWithInt:number];
-        self.position = position;
-        self.ppg = [NSNumber numberWithDouble:0.0];
-        self.rpg = [NSNumber numberWithDouble:0.0];
-        self.apg = [NSNumber numberWithDouble:0.0];
-        self.spg = [NSNumber numberWithDouble:0.0];
-        self.bpg = [NSNumber numberWithDouble:0.0];
+        _name = name;
+        _number = [NSNumber numberWithInt:number];
+        _position = position;
+        _ppg = [NSNumber numberWithDouble:0.0];
+        _rpg = [NSNumber numberWithDouble:0.0];
+        _apg = [NSNumber numberWithDouble:0.0];
+        _spg = [NSNumber numberWithDouble:0.0];
+        _bpg = [NSNumber numberWithDouble:0.0];
     }
     return self;
+}
+
+
+-(void)setNotes:(NSAttributedString *)notes
+{
+    _notes = notes;
 }
 
 @end

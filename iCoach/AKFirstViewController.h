@@ -8,10 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AKFirstViewController : UITableViewController
-
-//@property (nonatomic,strong) NSArray *starters;
-//@property (nonatomic, strong) NSMutableArray *bench;
+@interface AKFirstViewController : UITableViewController <UISearchBarDelegate>
 
 -(void)updatePlayers:(NSArray *)players;
 @end

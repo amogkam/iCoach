@@ -10,16 +10,19 @@
 
 @interface Player : NSObject
 
-@property(nonatomic, strong) NSString *name;
-@property(nonatomic, strong) NSNumber *number;
-@property(nonatomic, strong) NSString *position;
-@property(nonatomic, strong) NSNumber *ppg;
-@property(nonatomic, strong) NSNumber *rpg;
-@property(nonatomic, strong) NSNumber *apg;
-@property(nonatomic, strong) NSNumber *spg;
-@property(nonatomic, strong) NSNumber *bpg;
+@property(nonatomic, strong, readonly) NSString *name;
+@property(nonatomic, strong, readonly) NSNumber *number;
+@property(nonatomic, strong, readonly) NSString *position;
+@property(nonatomic, strong, readonly) NSNumber *ppg;
+@property(nonatomic, strong, readonly) NSNumber *rpg;
+@property(nonatomic, strong, readonly) NSNumber *apg;
+@property(nonatomic, strong, readonly) NSNumber *spg;
+@property(nonatomic, strong, readonly) NSNumber *bpg;
+@property(nonatomic, strong, readonly) NSAttributedString *notes;
 
 -(id)initWithName: (NSString *)name number:(int)number position:(NSString *)position;
+-(NSAttributedString *)notes;
+-(void)setNotes:(NSAttributedString *)notes;
 
 
 @end

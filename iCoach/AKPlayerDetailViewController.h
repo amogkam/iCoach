@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Player.h"
 
-@interface AKPlayerDetailViewController : UIViewController
+@interface AKPlayerDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate> {}
 
-@property (nonatomic, strong) Player *player;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UITextView *textView;
+
+-(void)updatePlayer: (Player *)player;
 
 @end

@@ -21,14 +21,14 @@
     firstVC.title = @"Players";
     
     Player *player1 = [[Player alloc] initWithName:@"John Doe" number:1 position:@"PG"];
-    Player *player2 = [[Player alloc] initWithName:@"Joe Random" number:2 position:@"SG"];
+    Player *player2 = [[Player alloc] initWithName:@"Joe Random" number:2 position:@"SG/SF/C"];
     Player *player3 = [[Player alloc] initWithName:@"Amog Kamsetty" number:3 position:@"SF"];
     Player *player4 = [[Player alloc] initWithName:@"Colin Campbell" number:4 position:@"PF"];
     Player *player5 = [[Player alloc] initWithName:@"Austen McDonald" number:5 position:@"C"];
     Player *player6 = [[Player alloc] initWithName:@"Objective C" number:6 position:@"C"];
     
     
-    NSArray *players = [NSArray arrayWithObjects: player1,player2,player3,player4,player5, player6, nil];
+    NSArray *players = @[player1,player2,player3,player4,player5, player6];
     [firstVC updatePlayers:players];
     
     AKSecondViewController *secondVC = [[AKSecondViewController alloc] init];
