@@ -20,12 +20,12 @@
     UINavigationController *firstNavVC = [[UINavigationController alloc] initWithRootViewController:firstVC];
     firstVC.title = @"Players";
     
-    Player *player1 = [[Player alloc] initWithName:@"John Doe" number:1 position:@"PG"];
-    Player *player2 = [[Player alloc] initWithName:@"Joe Random" number:2 position:@"SG/SF/C"];
-    Player *player3 = [[Player alloc] initWithName:@"Amog Kamsetty" number:3 position:@"SF"];
-    Player *player4 = [[Player alloc] initWithName:@"Colin Campbell" number:4 position:@"PF"];
-    Player *player5 = [[Player alloc] initWithName:@"Austen McDonald" number:5 position:@"C"];
-    Player *player6 = [[Player alloc] initWithName:@"Objective C" number:6 position:@"C"];
+    Player *player1 = [[Player alloc] initWithFirstName:@"John" lastName:@"Doe" number:1 position:@[@"PG"]starter:YES];
+    Player *player2 = [[Player alloc] initWithFirstName:@"Joe" lastName:@"Random" number:2 position:@[@"SG",@"SF",@"C"]starter:YES];
+    Player *player3 = [[Player alloc] initWithFirstName:@"Amog" lastName:@"Kamsetty" number:3 position:@[@"SF"]starter:YES];
+    Player *player4 = [[Player alloc] initWithFirstName:@"Colin" lastName:@"Campbell" number:4 position:@[@"PF"]starter:NO];
+    Player *player5 = [[Player alloc] initWithFirstName:@"Austen" lastName:@"McDonald" number:5 position:@[@"C"]starter:YES];
+    Player *player6 = [[Player alloc] initWithFirstName:@"Objective" lastName:@"C" number:6 position:@[@"C"]starter:NO];
     
     
     NSArray *players = @[player1,player2,player3,player4,player5, player6];

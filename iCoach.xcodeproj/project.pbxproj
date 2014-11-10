@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF2073961A0DAEEE00DF98BB /* AKPlayerEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2073951A0DAEEE00DF98BB /* AKPlayerEditViewController.m */; };
 		AF3A9E7019BAAA6A00975902 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A9E6F19BAAA6A00975902 /* Foundation.framework */; };
 		AF3A9E7219BAAA6A00975902 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A9E7119BAAA6A00975902 /* CoreGraphics.framework */; };
 		AF3A9E7419BAAA6A00975902 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A9E7319BAAA6A00975902 /* UIKit.framework */; };
@@ -24,7 +25,6 @@
 		AF3A9E9E19BAAA6B00975902 /* iCoachTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3A9E9D19BAAA6B00975902 /* iCoachTests.m */; };
 		AF3B2A9719EC52A5004AD9F1 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3B2A9619EC52A5004AD9F1 /* Player.m */; };
 		AF3B2A9A19EC5F72004AD9F1 /* AKPlayerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3B2A9919EC5F72004AD9F1 /* AKPlayerDetailViewController.m */; };
-		AFCE23AC19F4793300C187E0 /* AKPlayerEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCE23AB19F4793300C187E0 /* AKPlayerEditTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AF2073941A0DAEEE00DF98BB /* AKPlayerEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlayerEditViewController.h; sourceTree = "<group>"; };
+		AF2073951A0DAEEE00DF98BB /* AKPlayerEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlayerEditViewController.m; sourceTree = "<group>"; };
 		AF3A9E6C19BAAA6A00975902 /* iCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF3A9E6F19BAAA6A00975902 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AF3A9E7119BAAA6A00975902 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -63,8 +65,6 @@
 		AF3B2A9619EC52A5004AD9F1 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		AF3B2A9819EC5F72004AD9F1 /* AKPlayerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlayerDetailViewController.h; sourceTree = "<group>"; };
 		AF3B2A9919EC5F72004AD9F1 /* AKPlayerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlayerDetailViewController.m; sourceTree = "<group>"; };
-		AFCE23AA19F4793300C187E0 /* AKPlayerEditTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlayerEditTableViewController.h; sourceTree = "<group>"; };
-		AFCE23AB19F4793300C187E0 /* AKPlayerEditTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlayerEditTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,8 +133,8 @@
 				AF3B2A9619EC52A5004AD9F1 /* Player.m */,
 				AF3B2A9819EC5F72004AD9F1 /* AKPlayerDetailViewController.h */,
 				AF3B2A9919EC5F72004AD9F1 /* AKPlayerDetailViewController.m */,
-				AFCE23AA19F4793300C187E0 /* AKPlayerEditTableViewController.h */,
-				AFCE23AB19F4793300C187E0 /* AKPlayerEditTableViewController.m */,
+				AF2073941A0DAEEE00DF98BB /* AKPlayerEditViewController.h */,
+				AF2073951A0DAEEE00DF98BB /* AKPlayerEditViewController.m */,
 				AF3A9E8A19BAAA6A00975902 /* Images.xcassets */,
 				AF3A9E7619BAAA6A00975902 /* Supporting Files */,
 			);
@@ -271,12 +271,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF3B2A9A19EC5F72004AD9F1 /* AKPlayerDetailViewController.m in Sources */,
-				AFCE23AC19F4793300C187E0 /* AKPlayerEditTableViewController.m in Sources */,
 				AF3A9E8019BAAA6A00975902 /* AKAppDelegate.m in Sources */,
 				AF3A9E8619BAAA6A00975902 /* AKFirstViewController.m in Sources */,
 				AF3A9E8919BAAA6A00975902 /* AKSecondViewController.m in Sources */,
 				AF3A9E7C19BAAA6A00975902 /* main.m in Sources */,
 				AF3B2A9719EC52A5004AD9F1 /* Player.m in Sources */,
+				AF2073961A0DAEEE00DF98BB /* AKPlayerEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

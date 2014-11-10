@@ -13,7 +13,12 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UILabel *myLabel;
+@property (nonatomic, strong) UILabel *positionLabel;
+@property (nonatomic, strong) UILabel *numberLabel;
+@property (nonatomic) BOOL isPop;
 
 -(void)updatePlayer: (Player *)player;
+-(void)setPop:(BOOL)pop;
 
 @end

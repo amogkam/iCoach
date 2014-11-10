@@ -9,6 +9,7 @@
 #import "AKFirstViewController.h"
 #import "Player.h"
 #import "AKPlayerDetailViewController.h"
+#import "AKPlayerEditViewController.h"
 
 @interface AKFirstViewController ()
 
@@ -25,22 +26,27 @@
 static const NSUInteger kNumSections=2;
 static const NSUInteger kStarterSection=0;
 static const NSUInteger kBenchSection=1;
-static const NSUInteger kNumStarters=5;
 
 NSArray *searchResults;
-NSMutableArray *names;
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    for(Player *player in self.players)
-    {
-        [names addObject:player.name];
+    self.starters = [[NSMutableArray alloc] init];
+    self.bench = [[NSMutableArray alloc] init];
+    for (Player *p in self.players) {
+        if (p.starter == YES) {
+            [self.starters addObject:p];
+        }
+        else
+        {
+            [self.bench addObject:p];
+        }
     }
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:NULL];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,50,320,44)];
     self.tableView.tableHeaderView = searchBar;
     searchBar.delegate = self;
@@ -62,11 +68,11 @@ NSMutableArray *names;
     {
         if(section == kStarterSection)
         {
-            return kNumStarters;
+            return [self.starters count];
         }
         else if(section == kBenchSection)
         {
-            return [self.players count]-kNumStarters;
+            return [self.bench count];
         }
     }
     
@@ -107,22 +113,22 @@ NSMutableArray *names;
     if (tableView == self.searchDisplayController.searchResultsTableView)
     {
         Player *cellValue = [searchResults objectAtIndex:indexPath.row];
-        cell.textLabel.text = [[cellValue.name stringByAppendingString:@", "]stringByAppendingString:[cellValue.number stringValue]];
+        cell.textLabel.text = [[[cellValue fullName] stringByAppendingString:@", "]stringByAppendingString:[cellValue.number stringValue]];
         return cell;
     }
     else
     {
         if (indexPath.section==kStarterSection)
         {
-            Player *cellValue = [self.players objectAtIndex:indexPath.row];
-            NSString *text = [[cellValue.name stringByAppendingString:@", "]stringByAppendingString:[cellValue.number stringValue]];
+            Player *cellValue = [self.starters objectAtIndex:indexPath.row];
+            NSString *text = [[[cellValue fullName] stringByAppendingString:@", "]stringByAppendingString:[cellValue.number stringValue]];
             cell.textLabel.text = text;
             return cell;
         }
         else
         {
-            Player *cellValue = [self.players objectAtIndex:indexPath.row+kNumStarters];
-            NSString *text = [[cellValue.name stringByAppendingString:@", "]stringByAppendingString:[cellValue.number stringValue]];
+            Player *cellValue = [self.bench objectAtIndex:indexPath.row];
+            NSString *text = [[[cellValue fullName] stringByAppendingString:@", "]stringByAppendingString:[cellValue.number stringValue]];
             cell.textLabel.text = text;
             
             return cell;
@@ -135,15 +141,23 @@ NSMutableArray *names;
     
     NSInteger row = [indexPath row];
     AKPlayerDetailViewController *viewController = [[AKPlayerDetailViewController alloc] init];
-    if(indexPath.section==kStarterSection)
+    if(collectionView == self.searchDisplayController.searchResultsTableView)
     {
-        [viewController updatePlayer:[self.players objectAtIndex:row]];
+        [viewController updatePlayer:[searchResults objectAtIndex:row]];
         [self.navigationController pushViewController:viewController animated:YES];
     }
     else
     {
-        [viewController updatePlayer:[self.players objectAtIndex:row+5]];
-        [self.navigationController pushViewController:viewController animated:YES];
+        if(indexPath.section==kStarterSection)
+        {
+            [viewController updatePlayer:[self.starters objectAtIndex:row]];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+        else
+        {
+            [viewController updatePlayer:[self.bench objectAtIndex:row]];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
     }
 }
 
@@ -164,8 +178,8 @@ NSMutableArray *names;
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains %@", searchText];
-    searchResults = [names filteredArrayUsingPredicate:resultPredicate];
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"firstname contains %@ || lastname contains %@ || number==%d ", searchText, searchText, [searchText intValue]];
+    searchResults = [self.players filteredArrayUsingPredicate:resultPredicate];
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
@@ -173,6 +187,15 @@ NSMutableArray *names;
     [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles]objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
     
     return YES;
+}
+
+-(void)add
+{
+    Player *player = [[Player alloc] initWithFirstName:nil lastName:nil number:0 position:nil starter:NO];
+    [self updatePlayers:[self.players arrayByAddingObject:player]];
+    AKPlayerEditViewController *edit = [[AKPlayerEditViewController alloc] init];
+    [edit updatePlayer:player];
+    [self.navigationController pushViewController:edit animated:YES];
 }
 
 @end

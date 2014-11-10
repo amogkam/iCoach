@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AKPlayerEditTableViewController : UITableViewController
+@interface AKPlayerEditViewController : UIViewController
 
 @end

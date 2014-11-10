@@ -8,7 +8,7 @@
 
 #import "AKPlayerDetailViewController.h"
 #import "Player.h"
-#import "AKPlayerEditTableViewController.h"
+#import "AKPlayerEditViewController.h"
 
 @interface AKPlayerDetailViewController ()
 
@@ -24,28 +24,34 @@ NSArray *values;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.isPop = true;
     keys = @[@"PPG: ",@"RPG: ",@"APG: ",@"SPG: ",@"BPG: "];
     values = @[[self.player ppg],[self.player rpg],[self.player apg],[self.player spg],[self.player bpg]];
     self.stats = [NSDictionary dictionaryWithObjects:values forKeys:keys];
     
     self.view.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.95];
-    UILabel *myLabel = [[UILabel alloc]initWithFrame:CGRectMake(120, 0, 175, 100)];
-    myLabel.font = [UIFont fontWithName:@"Helvetica" size:35];
-    myLabel.adjustsFontSizeToFitWidth = YES;
-    [myLabel setBackgroundColor:[UIColor clearColor]];
-    [myLabel setText:[self.player name]];
+    self.myLabel = [[UILabel alloc]initWithFrame:CGRectMake(120, 0, 175, 100)];
+    self.myLabel.font = [UIFont fontWithName:@"Helvetica" size:35];
+    self.myLabel.adjustsFontSizeToFitWidth = YES;
+    [self.myLabel setBackgroundColor:[UIColor clearColor]];
+    [self.myLabel setText: [self.player fullName]];
     
-    UILabel *positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(135, 50, 175, 100)];
-    positionLabel.font = [UIFont fontWithName:@"Helvetica" size:25];
-    positionLabel.adjustsFontSizeToFitWidth = YES;
-    [positionLabel setBackgroundColor:[UIColor clearColor]];
-    [positionLabel setText:[self.player position]];
+    self.positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(135, 50, 175, 100)];
+    self.positionLabel.font = [UIFont fontWithName:@"Helvetica" size:25];
+    self.positionLabel.adjustsFontSizeToFitWidth = YES;
+    [self.positionLabel setBackgroundColor:[UIColor clearColor]];
+    NSString *pos = [self.player.position objectAtIndex:0];
+    for(int i=1; i<[self.player.position count]; i++)
+    {
+        pos = [pos stringByAppendingString:[@"/" stringByAppendingString:[self.player.position objectAtIndex:i]]];
+    }
+    [self.positionLabel setText:pos];
     
-    UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,25,120,100)];
-    numberLabel.font = [UIFont fontWithName:@"Helvetica" size:80];
-    numberLabel.adjustsFontSizeToFitWidth = YES;
-    [numberLabel setBackgroundColor:[UIColor clearColor]];
-    [numberLabel setText:[[[self.player number] stringValue] stringByAppendingString:@" | "]];
+    self.numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,25,120,100)];
+    self.numberLabel.font = [UIFont fontWithName:@"Helvetica" size:80];
+    self.numberLabel.adjustsFontSizeToFitWidth = YES;
+    [self.numberLabel setBackgroundColor:[UIColor clearColor]];
+    [self.numberLabel setText:[[[self.player number] stringValue] stringByAppendingString:@" | "]];
     
     self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0.0, 120, 320.0, 125)textContainer: nil];
     self.textView.font = [UIFont fontWithName:@"Helvetica" size:12];
@@ -55,6 +61,8 @@ NSArray *values;
     if(self.player.notes == nil)
     {
         self.textView.text=@"Notes";
+        self.textView.textColor = [UIColor lightGrayColor];
+        
     }
     else
     {
@@ -74,15 +82,25 @@ NSArray *values;
     self.tableView.dataSource = self;
     
     UIScrollView *scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [scrollview addSubview: myLabel];
-    [scrollview addSubview:positionLabel];
-    [scrollview addSubview:numberLabel];
+    [scrollview addSubview: self.myLabel];
+    [scrollview addSubview:self.positionLabel];
+    [scrollview addSubview:self.numberLabel];
     [scrollview addSubview: self.textView];
     [scrollview addSubview:self.tableView];
     scrollview.contentSize = CGSizeMake(320,568);
     [self.view addSubview:scrollview];
     
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if(!self.isPop)
+    {
+        [super viewDidLoad];
+    }
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -141,6 +159,11 @@ NSArray *values;
 
 -(BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
+    if(self.textView.text.length == 0){
+        self.textView.textColor = [UIColor lightGrayColor];
+        self.textView.text = @"Notes";
+        [self.textView resignFirstResponder];
+    }
     [self.player setNotes: textView.attributedText];
     return YES;
 }
@@ -166,8 +189,14 @@ NSArray *values;
 
 -(void)pushToEditView
 {
-    AKPlayerEditTableViewController *editView = [[AKPlayerEditTableViewController alloc] init];
-    [self presentViewController:editView animated:YES completion:nil];
+    AKPlayerEditViewController *editView = [[AKPlayerEditViewController alloc] init];
+    [editView updatePlayer: self.player];
+    [self.navigationController pushViewController:editView animated:YES];
+}
+
+-(void)setPop:(BOOL)pop
+{
+    self.isPop = pop;
 }
 
 

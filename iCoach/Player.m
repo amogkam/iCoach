@@ -16,11 +16,12 @@
 
 @implementation Player
 
--(id)initWithName: (NSString *)name number:(int)number position:(NSString *)position
+-(id)initWithFirstName: (NSString *)firstname lastName: (NSString *)lastname number:(int)number position:(NSArray *)position starter:(BOOL)starter
 {
     self = [super init];
     if (self) {
-        _name = name;
+        _firstname = firstname;
+        _lastname = lastname;
         _number = [NSNumber numberWithInt:number];
         _position = position;
         _ppg = [NSNumber numberWithDouble:0.0];
@@ -28,14 +29,41 @@
         _apg = [NSNumber numberWithDouble:0.0];
         _spg = [NSNumber numberWithDouble:0.0];
         _bpg = [NSNumber numberWithDouble:0.0];
+        _starter = starter;
     }
     return self;
+}
+
+-(void) setFirstName:(NSString *)firstname lastName:(NSString *)lastname
+{
+    _firstname = firstname;
+    _lastname = lastname;
 }
 
 
 -(void)setNotes:(NSAttributedString *)notes
 {
     _notes = notes;
+}
+
+- (NSString *)fullName
+{
+    return [NSString stringWithFormat:@"%@ %@", self.firstname, self.lastname];
+}
+
+-(void) setNumber:(NSString *)number
+{
+    _number = [NSNumber numberWithInt:[number intValue]];
+}
+
+-(void) setStarter:(BOOL)starter
+{
+    _starter = starter;
+}
+
+-(void) setPosition:(NSArray *)position
+{
+    _position = position;
 }
 
 @end

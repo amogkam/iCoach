@@ -10,19 +10,27 @@
 
 @interface Player : NSObject
 
-@property(nonatomic, strong, readonly) NSString *name;
+@property(nonatomic, strong, readonly) NSString *firstname;
+@property(nonatomic, strong, readonly) NSString *lastname;
 @property(nonatomic, strong, readonly) NSNumber *number;
-@property(nonatomic, strong, readonly) NSString *position;
+@property(nonatomic, strong, readonly) NSArray *position;
 @property(nonatomic, strong, readonly) NSNumber *ppg;
 @property(nonatomic, strong, readonly) NSNumber *rpg;
 @property(nonatomic, strong, readonly) NSNumber *apg;
 @property(nonatomic, strong, readonly) NSNumber *spg;
 @property(nonatomic, strong, readonly) NSNumber *bpg;
 @property(nonatomic, strong, readonly) NSAttributedString *notes;
+@property(nonatomic,readonly) BOOL starter;
 
--(id)initWithName: (NSString *)name number:(int)number position:(NSString *)position;
+
+-(id)initWithFirstName: (NSString *)firstname lastName: (NSString *)lastname number:(int)number position:(NSArray *)position starter:(BOOL)starter;
 -(NSAttributedString *)notes;
 -(void)setNotes:(NSAttributedString *)notes;
+-(void) setFirstName:(NSString *)firstname lastName:(NSString *)lastname;
+- (NSString *)fullName;
+-(void) setNumber:(NSString *)number;
+-(void) setStarter:(BOOL)starter;
+-(void) setPosition:(NSArray *)position;
 
 
 @end

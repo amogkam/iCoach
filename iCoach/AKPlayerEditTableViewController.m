@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Amog Kamsetty. All rights reserved.
 //
 
-#import "AKPlayerEditTableViewController.h"
+#import "AKPlayerEditViewController.h"
 
-@interface AKPlayerEditTableViewController ()
+@interface AKPlayerEditViewController ()
 
 @end
 
-@implementation AKPlayerEditTableViewController
+@implementation AKPlayerEditViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
