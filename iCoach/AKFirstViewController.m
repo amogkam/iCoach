@@ -15,8 +15,6 @@
 
 @property (strong, nonatomic) AKPlayerDetailViewController *playerController;
 
-@property (nonatomic, strong) NSArray *players;
-
 @property(nonatomic, strong) UISearchDisplayController *controller;
 
 @end
@@ -33,18 +31,6 @@ NSArray *searchResults;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.starters = [[NSMutableArray alloc] init];
-    self.bench = [[NSMutableArray alloc] init];
-    for (Player *p in self.players) {
-        if (p.starter == YES) {
-            [self.starters addObject:p];
-        }
-        else
-        {
-            [self.bench addObject:p];
-        }
-    }
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,50,320,44)];
@@ -140,31 +126,32 @@ NSArray *searchResults;
 - (void)tableView:(UITableView *)collectionView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSInteger row = [indexPath row];
-    AKPlayerDetailViewController *viewController = [[AKPlayerDetailViewController alloc] init];
-    if(collectionView == self.searchDisplayController.searchResultsTableView)
-    {
-        [viewController updatePlayer:[searchResults objectAtIndex:row]];
-        [self.navigationController pushViewController:viewController animated:YES];
+    Player *player = [[Player alloc] init];
+    if (collectionView == self.searchDisplayController.searchResultsTableView) {
+        player = [searchResults objectAtIndex:row];
+    } else if (indexPath.section == kStarterSection && self.starters.count>0) {
+        player = [self.starters objectAtIndex:row];
+    } else if (indexPath.section == kBenchSection && self.bench.count>0) {
+        player = [self.bench objectAtIndex:row];
     }
-    else
-    {
-        if(indexPath.section==kStarterSection)
-        {
-            [viewController updatePlayer:[self.starters objectAtIndex:row]];
-            [self.navigationController pushViewController:viewController animated:YES];
-        }
-        else
-        {
-            [viewController updatePlayer:[self.bench objectAtIndex:row]];
-            [self.navigationController pushViewController:viewController animated:YES];
-        }
-    }
+    [self.delegate selectedPlayer:player];
 }
 
 
 -(void)updatePlayers: (NSArray *)players
 {
     self.players = players;
+    self.starters = [[NSMutableArray alloc] init];
+    self.bench = [[NSMutableArray alloc] init];
+    for (Player *p in self.players) {
+        if (p.starter == YES) {
+            [self.starters addObject:p];
+        }
+        else
+        {
+            [self.bench addObject:p];
+        }
+    }
     [self.tableView reloadData];
 }
 
@@ -192,10 +179,7 @@ NSArray *searchResults;
 -(void)add
 {
     Player *player = [[Player alloc] initWithFirstName:nil lastName:nil number:0 position:nil starter:NO];
-    [self updatePlayers:[self.players arrayByAddingObject:player]];
-    AKPlayerEditViewController *edit = [[AKPlayerEditViewController alloc] init];
-    [edit updatePlayer:player];
-    [self.navigationController pushViewController:edit animated:YES];
+    [self.delegate addPlayer:player];
 }
 
 @end

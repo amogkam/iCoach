@@ -10,29 +10,51 @@
 #import "AKFirstViewController.h"
 #import "AKSecondViewController.h"
 #import "AKPlayerDetailViewController.h"
-
+#import "AKPlayerEditViewController.h"
+#import "Game.h"
+#import "AKGameDetailViewController.h"
+@interface AKAppDelegate() <AKFirstViewControllerDelegate, AKPlayerDetailViewControllerDelegate, AKPlayerEditViewControllerDelegate, AKSecondViewControllerDelegate>
+@end
 @implementation AKAppDelegate
+{
+    UINavigationController *_firstNavigationController;
+    UINavigationController *_secondNavigationController;
+    AKFirstViewController *_firstViewController;
+    AKPlayerDetailViewController *_detailViewController;
+    AKSecondViewController *_secondViewController;
+    AKGameDetailViewController *_gameDetailViewController;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
     AKFirstViewController *firstVC = [[AKFirstViewController alloc] init];
+    firstVC.delegate = self;
     UINavigationController *firstNavVC = [[UINavigationController alloc] initWithRootViewController:firstVC];
+    _firstNavigationController = firstNavVC;
     firstVC.title = @"Players";
+    firstVC.players = [[NSArray alloc] init];
     
-    Player *player1 = [[Player alloc] initWithFirstName:@"John" lastName:@"Doe" number:1 position:@[@"PG"]starter:YES];
+    Player *player1 = [[Player alloc] initWithFirstName:@"John" lastName:@"Doe" number:1 position:@[@"PG"]starter:NO];
     Player *player2 = [[Player alloc] initWithFirstName:@"Joe" lastName:@"Random" number:2 position:@[@"SG",@"SF",@"C"]starter:YES];
-    Player *player3 = [[Player alloc] initWithFirstName:@"Amog" lastName:@"Kamsetty" number:3 position:@[@"SF"]starter:YES];
+    Player *player3 = [[Player alloc] initWithFirstName:@"Amog" lastName:@"Kamsetty" number:3 position:@[@"SF"]starter:NO];
     Player *player4 = [[Player alloc] initWithFirstName:@"Colin" lastName:@"Campbell" number:4 position:@[@"PF"]starter:NO];
-    Player *player5 = [[Player alloc] initWithFirstName:@"Austen" lastName:@"McDonald" number:5 position:@[@"C"]starter:YES];
+    Player *player5 = [[Player alloc] initWithFirstName:@"Austen" lastName:@"McDonald" number:5 position:@[@"C"]starter:NO];
     Player *player6 = [[Player alloc] initWithFirstName:@"Objective" lastName:@"C" number:6 position:@[@"C"]starter:NO];
     
     
     NSArray *players = @[player1,player2,player3,player4,player5, player6];
     [firstVC updatePlayers:players];
     
+    _firstViewController = firstVC;
+    
     AKSecondViewController *secondVC = [[AKSecondViewController alloc] init];
+    secondVC.delegate = self;
     UINavigationController *secondNavVC = [[UINavigationController alloc] initWithRootViewController:secondVC];
+    _secondNavigationController = secondNavVC;
+    secondVC.title = @"Games";
+    secondVC.games = @[[[Game alloc] initWithPlayers:_firstViewController.players name:@"Game 1"]];
+    _secondViewController = secondVC;
     
     NSMutableArray *tabViewControllers = [[NSMutableArray alloc] init];
     [tabViewControllers addObject:firstNavVC];
@@ -44,7 +66,11 @@
     firstNavigationBar.tintColor = [UIColor whiteColor];
     firstNavigationBar.barStyle = UIBarStyleBlackOpaque;
     
-    secondNavVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Second" image:nil tag:2];
+    secondNavVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Games" image:nil tag:2];
+    UINavigationBar *secondNavigationBar = secondNavVC.navigationBar;
+    secondNavigationBar.barTintColor = [UIColor colorWithRed:242.0 / 255.0 green:122.0 / 255.0 blue:87.0 / 255.0 alpha:1.0];
+    secondNavigationBar.tintColor = [UIColor whiteColor];
+    secondNavigationBar.barStyle = UIBarStyleBlackOpaque;
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     tabBarController.viewControllers = tabViewControllers;
@@ -57,7 +83,51 @@
        
     return YES;
 }
-							
+
+- (void)selectedPlayer:(Player *)player
+{
+    AKPlayerDetailViewController *detailVC = [[AKPlayerDetailViewController alloc] init];
+    detailVC.delegate = self;
+    [detailVC updatePlayer:player];
+    _detailViewController = detailVC;
+    [_firstNavigationController pushViewController:detailVC animated:YES];
+}
+
+-(void)editingPlayer:(Player *)player
+{
+    AKPlayerEditViewController *editView = [[AKPlayerEditViewController alloc] init];
+    editView.delegate = self;
+    [editView updatePlayer: player];
+    [_firstNavigationController pushViewController:editView animated:YES];
+}
+
+-(void)finishedEdit:(Player *)player
+{
+    [_detailViewController updatePlayer:player];
+    if(![_firstViewController.players containsObject:player] && player.firstname!=nil)
+    {
+        [_firstViewController updatePlayers:[_firstViewController.players arrayByAddingObject:player]];
+    }
+    [_firstViewController updatePlayers:_firstViewController.players];
+    [_firstNavigationController popViewControllerAnimated:YES];
+}
+
+-(void)addPlayer:(Player *)player
+{
+    AKPlayerEditViewController *editView = [[AKPlayerEditViewController alloc] init];
+    editView.delegate = self;
+    [editView updatePlayer: player];
+    [_firstNavigationController pushViewController:editView animated:YES];
+}
+
+-(void)selectedGame:(Game *)game
+{
+    AKGameDetailViewController *gameDetailVC = [[AKGameDetailViewController alloc] init];
+    [gameDetailVC updateGame:game];
+    _gameDetailViewController = gameDetailVC;
+    [_secondNavigationController pushViewController:gameDetailVC animated:YES];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

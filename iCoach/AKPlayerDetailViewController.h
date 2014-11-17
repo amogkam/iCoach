@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Player.h"
+@protocol AKPlayerDetailViewControllerDelegate <NSObject>
 
+- (void)editingPlayer:(Player *)player;
+
+@end
 @interface AKPlayerDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate> {}
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -16,9 +20,8 @@
 @property (nonatomic, strong) UILabel *myLabel;
 @property (nonatomic, strong) UILabel *positionLabel;
 @property (nonatomic, strong) UILabel *numberLabel;
-@property (nonatomic) BOOL isPop;
+@property (nonatomic, weak) id<AKPlayerDetailViewControllerDelegate> delegate;
 
 -(void)updatePlayer: (Player *)player;
--(void)setPop:(BOOL)pop;
 
 @end

@@ -24,7 +24,6 @@ NSArray *values;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.isPop = true;
     keys = @[@"PPG: ",@"RPG: ",@"APG: ",@"SPG: ",@"BPG: "];
     values = @[[self.player ppg],[self.player rpg],[self.player apg],[self.player spg],[self.player bpg]];
     self.stats = [NSDictionary dictionaryWithObjects:values forKeys:keys];
@@ -40,7 +39,7 @@ NSArray *values;
     self.positionLabel.font = [UIFont fontWithName:@"Helvetica" size:25];
     self.positionLabel.adjustsFontSizeToFitWidth = YES;
     [self.positionLabel setBackgroundColor:[UIColor clearColor]];
-    NSString *pos = [self.player.position objectAtIndex:0];
+    NSString *pos = [self.player.position count]>0 ? [self.player.position objectAtIndex:0]:nil;
     for(int i=1; i<[self.player.position count]; i++)
     {
         pos = [pos stringByAppendingString:[@"/" stringByAppendingString:[self.player.position objectAtIndex:i]]];
@@ -95,10 +94,6 @@ NSArray *values;
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if(!self.isPop)
-    {
-        [super viewDidLoad];
-    }
 }
 
 
@@ -146,6 +141,16 @@ NSArray *values;
 -(void) updatePlayer: (Player *)player
 {
     self.player = player;
+    [self.myLabel setText: [self.player fullName]];
+    NSString *pos;
+    if(self.player.position.count<=0) pos=nil;
+    else pos=[self.player.position objectAtIndex:0];
+    for(int i=1; i<[self.player.position count]; i++)
+    {
+        pos = [pos stringByAppendingString:[@"/" stringByAppendingString:[self.player.position objectAtIndex:i]]];
+    }
+    [self.positionLabel setText:pos];
+    [self.numberLabel setText:[[[self.player number] stringValue] stringByAppendingString:@" | "]];
     [self.tableView reloadData];
 }
 
@@ -164,6 +169,7 @@ NSArray *values;
         self.textView.text = @"Notes";
         [self.textView resignFirstResponder];
     }
+    else self.textView.textColor = [UIColor blackColor];
     [self.player setNotes: textView.attributedText];
     return YES;
 }
@@ -189,14 +195,8 @@ NSArray *values;
 
 -(void)pushToEditView
 {
-    AKPlayerEditViewController *editView = [[AKPlayerEditViewController alloc] init];
-    [editView updatePlayer: self.player];
-    [self.navigationController pushViewController:editView animated:YES];
-}
-
--(void)setPop:(BOOL)pop
-{
-    self.isPop = pop;
+    Player *player  = self.player;
+    [self.delegate editingPlayer:player];
 }
 
 

@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Game;
 
-@interface AKSecondViewController : UIViewController
+@protocol AKSecondViewControllerDelegate <NSObject>
 
+-(void)selectedGame:(Game *)game;
+
+@end
+
+@interface AKSecondViewController : UITableViewController
+
+@property(nonatomic,strong) NSArray *games;
+@property (nonatomic, weak) id<AKSecondViewControllerDelegate> delegate;
+
+-(void)updateGames:(NSArray *)games;
 @end

@@ -72,6 +72,7 @@ static const int kNumberOfPositions = 5;
     }
     
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    gestureRecognizer.delegate = self;
     [self.view addGestureRecognizer:gestureRecognizer];
     
     
@@ -241,6 +242,14 @@ static const int kNumberOfPositions = 5;
         default:
             break;
     }
+    for(NSString *str in self.player.position)
+    {
+        if([str isEqualToString:cell.textLabel.text])
+        {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            [self.positions addObject:cell.textLabel.text];
+        }
+    }
     return cell;
 }
 
@@ -250,15 +259,20 @@ static const int kNumberOfPositions = 5;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *alertString = [NSString stringWithFormat:@"Clicked on row #%d", [indexPath row]];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:@"" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
-    [alert show];
 
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.positions addObject:cell.textLabel.text];
-    NSLog(@"%@",cell.textLabel.text);
+    if([self.positions containsObject:cell.textLabel.text])
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self.positions removeObject:cell.textLabel.text];
+    }
+    else
+    {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self.positions addObject:cell.textLabel.text];
+    }
     
 }
 
@@ -287,12 +301,17 @@ static const int kNumberOfPositions = 5;
     [self.player setNumber: self.playernumber];
     [self.player setStarter:self.playerstarter];
     [self.player setPosition: self.positions];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate finishedEdit:self.player];
 }
 
 -(void)cancel
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate finishedEdit:self.player];
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return self.textField1.isEditing || self.textField2.isEditing;
 }
 
 @end
