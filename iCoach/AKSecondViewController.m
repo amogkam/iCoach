@@ -18,6 +18,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.games = [[NSArray alloc] init];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
 	
 
 }
@@ -30,6 +32,7 @@
 -(void)updateGames:(NSArray *)games
 {
     self.games = games;
+    [self.tableView reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -70,6 +73,11 @@
     Game *game = [[Game alloc] init];
     game = [self.games objectAtIndex:row];
     [self.delegate selectedGame:game];
+}
+
+-(void)add
+{
+    [self.delegate addGame];
 }
 
 @end

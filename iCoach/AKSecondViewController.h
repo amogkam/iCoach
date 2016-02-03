@@ -12,6 +12,7 @@
 @protocol AKSecondViewControllerDelegate <NSObject>
 
 -(void)selectedGame:(Game *)game;
+-(void)addGame;
 
 @end
 

@@ -13,7 +13,7 @@
 #import "AKPlayerEditViewController.h"
 #import "Game.h"
 #import "AKGameDetailViewController.h"
-@interface AKAppDelegate() <AKFirstViewControllerDelegate, AKPlayerDetailViewControllerDelegate, AKPlayerEditViewControllerDelegate, AKSecondViewControllerDelegate>
+@interface AKAppDelegate() <AKFirstViewControllerDelegate, AKPlayerDetailViewControllerDelegate, AKPlayerEditViewControllerDelegate, AKSecondViewControllerDelegate, AKGameDetailViewControllerDelegate>
 @end
 @implementation AKAppDelegate
 {
@@ -35,12 +35,12 @@
     firstVC.title = @"Players";
     firstVC.players = [[NSArray alloc] init];
     
-    Player *player1 = [[Player alloc] initWithFirstName:@"John" lastName:@"Doe" number:1 position:@[@"PG"]starter:NO];
-    Player *player2 = [[Player alloc] initWithFirstName:@"Joe" lastName:@"Random" number:2 position:@[@"SG",@"SF",@"C"]starter:YES];
-    Player *player3 = [[Player alloc] initWithFirstName:@"Amog" lastName:@"Kamsetty" number:3 position:@[@"SF"]starter:NO];
-    Player *player4 = [[Player alloc] initWithFirstName:@"Colin" lastName:@"Campbell" number:4 position:@[@"PF"]starter:NO];
-    Player *player5 = [[Player alloc] initWithFirstName:@"Austen" lastName:@"McDonald" number:5 position:@[@"C"]starter:NO];
-    Player *player6 = [[Player alloc] initWithFirstName:@"Objective" lastName:@"C" number:6 position:@[@"C"]starter:NO];
+    Player *player1 = [[Player alloc] initWithFirstName:@"Test" lastName:@"One" number:1 position:@[@"PG"]starter:YES];
+    Player *player2 = [[Player alloc] initWithFirstName:@"Test" lastName:@"Two" number:2 position:@[@"SG",@"SF",@"C"]starter:YES];
+    Player *player3 = [[Player alloc] initWithFirstName:@"Test" lastName:@"Three" number:3 position:@[@"SF"]starter:YES];
+    Player *player4 = [[Player alloc] initWithFirstName:@"Test" lastName:@"Four" number:4 position:@[@"PF"]starter:YES];
+    Player *player5 = [[Player alloc] initWithFirstName:@"Test" lastName:@"Five" number:5 position:@[@"C"]starter:YES];
+    Player *player6 = [[Player alloc] initWithFirstName:@"Test" lastName:@"Six" number:6 position:@[@"C"]starter:NO];
     
     
     NSArray *players = @[player1,player2,player3,player4,player5, player6];
@@ -53,7 +53,7 @@
     UINavigationController *secondNavVC = [[UINavigationController alloc] initWithRootViewController:secondVC];
     _secondNavigationController = secondNavVC;
     secondVC.title = @"Games";
-    secondVC.games = @[[[Game alloc] initWithPlayers:_firstViewController.players name:@"Game 1"]];
+    //secondVC.games = @[[[Game alloc] initWithPlayers:_firstViewController.players name:@"Game 1"]];
     _secondViewController = secondVC;
     
     NSMutableArray *tabViewControllers = [[NSMutableArray alloc] init];
@@ -123,9 +123,31 @@
 -(void)selectedGame:(Game *)game
 {
     AKGameDetailViewController *gameDetailVC = [[AKGameDetailViewController alloc] init];
+    gameDetailVC.delegate = self;
     [gameDetailVC updateGame:game];
     _gameDetailViewController = gameDetailVC;
     [_secondNavigationController pushViewController:gameDetailVC animated:YES];
+}
+
+-(void)addGame
+{
+    Game *game = [[Game alloc]initWithPlayers:_firstViewController.players name:[NSString stringWithFormat:@"Game %d",_secondViewController.games.count+1]];
+    for(Player *p in _firstViewController.players)
+    {
+        [p incrementGM];
+    }
+    [_secondViewController updateGames:[_secondViewController.games arrayByAddingObject:game]];
+}
+
+-(void) statsChanged:(Player *)player atStat:(int)section inGame:(Game *)game
+{
+    for(Player *p in _firstViewController.players)
+    {
+        if(p.number == player.number)
+        {
+        }
+        
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

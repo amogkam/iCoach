@@ -21,6 +21,7 @@
 @property(nonatomic, strong, readonly) NSNumber *bpg;
 @property(nonatomic, strong, readonly) NSAttributedString *notes;
 @property(nonatomic,readonly) BOOL starter;
+@property(nonatomic,strong,readonly) NSNumber *gamesPlayed;
 
 
 -(id)initWithFirstName: (NSString *)firstname lastName: (NSString *)lastname number:(int)number position:(NSArray *)position starter:(BOOL)starter;
@@ -31,6 +32,12 @@
 -(void) setNumber:(NSString *)number;
 -(void) setStarter:(BOOL)starter;
 -(void) setPosition:(NSArray *)position;
+-(void) incrementGM;
+-(void) setPpg:(NSNumber *)ppg;
+-(void) setRpg:(NSNumber *)rpg;
+-(void) setApg:(NSNumber *)apg;
+-(void) setSpg:(NSNumber *)spg;
+-(void) setBpg:(NSNumber *)bpg;
 
 
 @end

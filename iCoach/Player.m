@@ -66,4 +66,35 @@
     _position = position;
 }
 
+-(void) incrementGM
+{
+    NSNumber *num = [NSNumber numberWithInt:([self.gamesPlayed intValue] + 1)];
+    _gamesPlayed = num;
+}
+
+-(void) setPpg:(NSNumber *)ppg
+{
+    _ppg = ppg;
+}
+
+-(void) setRpg:(NSNumber *)rpg
+{
+   _rpg = rpg;
+}
+
+-(void) setApg:(NSNumber *)apg
+{
+    _apg = apg;
+}
+
+-(void) setSpg:(NSNumber *)spg
+{
+    _spg = spg;
+}
+
+-(void) setBpg:(NSNumber *)bpg
+{
+    _bpg = bpg;
+}
+
 @end
